@@ -1,4 +1,3 @@
-```markdown
 ### **部署流程**
 
 #### **① 下载并上传**
@@ -10,8 +9,7 @@
 
 #### **③ 配置 `sites.json`**
 在 `data` 文件夹中修改 `sites.json` 文件，示例内容如下：
-
-```json
+```markdown
 [
     {
         "name": "星宇云API",
