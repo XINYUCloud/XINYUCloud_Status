@@ -39,8 +39,7 @@
 | `expected_status`| 预期 HTTP 状态码（如 200）      |
 | `check_ssl`      | 是否检查 SSL 证书（true/false）|
 | `check_dns`      | 是否检查 DNS 解析（true/false）|
-```
-```
+
 #### **④ 配置`config.php`**
 修改`config.php`中的以下内容：
 ```markdown
@@ -64,4 +63,3 @@
 
 #### **⑥ 访问网站**
 - **演示站**: [https://status.xinyui.icu/](https://status.xinyui.icu/)  
-```
