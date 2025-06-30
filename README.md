@@ -1,35 +1,34 @@
-```markdown
 ### **部署流程**
 
 #### **① 下载并上传**
 1. 下载压缩包，上传至服务器站点目录后解压。
 
 #### **② 环境要求**
--**Nginx**：1.26及以上
--**PHP**：7.4及以上
+- **Nginx**: 1.26 及以上  
+- **PHP**: 7.4 及以上  
 
-####**③配置‘sites.json‘**
-在'data'文件夹中修改'sites.json'文件，示例内容如下：
-"'json
+#### **③ 配置 `sites.json`**
+在 `data` 文件夹中修改 `sites.json` 文件，示例内容如下：
+
+```json
 [
     {
-"name"："星宇云API"，
-"url"："https://api.fohok.xin"，
-"check_path"：""，
-"expected_status"：200，
-"check_ssl"：true，
-"check_dns"：true
+        "name": "星宇云API",
+        "url": "https://api.fohok.xin",
+        "check_path": "",
+        "expected_status": 200,
+        "check_ssl": true,
+        "check_dns": true
     },
     {
-"name"："云智API"，
-"url"："https://api.jkyai.top"，
-"check_path"：""，
-"expected_status"：200，
-"check_ssl"：true，
-"check_dns"：true
+        "name": "云智API",
+        "url": "https://api.jkyai.top",
+        "check_path": "",
+        "expected_status": 200,
+        "check_ssl": true,
+        "check_dns": true
     }
 ]
-```
 
 ##### **参数说明**
 |参数|说明|
