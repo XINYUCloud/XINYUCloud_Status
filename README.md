@@ -1,3 +1,4 @@
+```markdown
 ### **部署流程**
 
 #### **① 下载并上传**
@@ -29,16 +30,18 @@
         "check_dns": true
     }
 ]
+```
 
 ##### **参数说明**
-|参数|说明|
+| 参数             | 说明                          |
 |------------------|-----------------------------|
-| `姓名`           |站点标题|
-| `URL`            |站点链接|
-| `check_path`     |检查路径（无需可留空）|
-| `预期状态(_S)`|预期HTTP状态码(如200)|
-| `check_ssl`      |是否检查SSL证书(true/false)|
-| `check_dns`      |是否检查DNS解析(true/false)|
+| `name`           | 站点标题                      |
+| `url`            | 站点链接                      |
+| `check_path`     | 检查路径（无需可留空）          |
+| `expected_status`| 预期 HTTP 状态码（如 200）      |
+| `check_ssl`      | 是否检查 SSL 证书（true/false）|
+| `check_dns`      | 是否检查 DNS 解析（true/false）|
+```
 
 #### **④ 配置`config.php`**
 修改`config.php`中的以下内容：
