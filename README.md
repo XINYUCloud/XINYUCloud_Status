@@ -41,7 +41,7 @@
 | `check_dns`      | 是否检查 DNS 解析（true/false）|
 ```
 ```
-#### **④ 配置"config.php"**
+#### **④ 配置`config.php`**
 修改`config.php`中的以下内容：
 ```markdown
 定义('API_KEY'，'自定义密钥')；//安全密钥
