@@ -41,9 +41,9 @@
 | `check_dns`      | 是否检查 DNS 解析（true/false）|
 ```
 
-#### **④ 配置`config.php`**
-修改`config.php`中的以下内容：
+#### **④ 配置"config.php"**
 ```markdown
+修改`config.php`中的以下内容：
 定义('API_KEY'，'自定义密钥')；//安全密钥
 ```
 - **示例密钥**: `adc123456`  
