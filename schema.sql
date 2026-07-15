@@ -97,7 +97,7 @@ CREATE TABLE IF NOT EXISTS `settings` (
     `updated_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-INSERT INTO `settings` (`key`,`value`) VALUES
+INSERT IGNORE INTO `settings` (`key`,`value`) VALUES
 ('site_name','XINYU Status Monitor'),
 ('site_description','服务状态实时监控系统'),
 ('check_interval','300'),
@@ -108,5 +108,5 @@ INSERT INTO `settings` (`key`,`value`) VALUES
 ('allow_public_api','1'),
 ('version','3.0.0');
 
-INSERT INTO `users` (`username`,`password_hash`,`email`,`role`) VALUES
-('admin','$2y$12$LJ3m4ys3Gql.ZmCKvmpKveV0kXbBvF1pBxHnNBhRSGCqKqMqMqN7e','admin@example.com','admin');
+INSERT IGNORE INTO `users` (`username`,`password_hash`,`email`,`role`) VALUES
+('admin','$2y$12$LJ3m4ys3Gql.ZmCKvmpKveV0kXbBvF1pBxHnNBhRSGCqKqMqN7e','admin@example.com','admin');
