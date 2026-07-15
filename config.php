@@ -2,6 +2,7 @@
 error_reporting(E_ALL); ini_set('display_errors', '1'); ini_set('log_errors', '1');
 date_default_timezone_set('Asia/Shanghai');
 define('BASE_PATH', __DIR__);
+$GLOBALS['_ENV_VARS'] = [];
 function loadEnv($path) {
     if (!file_exists($path)) return;
     foreach (file($path, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES) as $line) {
@@ -9,11 +10,11 @@ function loadEnv($path) {
         if ($line === '' || strpos($line, '#') === 0) continue;
         if (strpos($line, '=') === false) continue;
         list($key, $value) = explode('=', $line, 2);
-        putenv(trim($key).'='.trim(trim($value), '"\''));
+        $GLOBALS['_ENV_VARS'][trim($key)] = trim(trim($value), '"\'');
     }
 }
 loadEnv(__DIR__ . '/.env');
-function env($key, $default = null) { $v = getenv($key); return $v === false ? $default : $v; }
+function env($key, $default = null) { return $GLOBALS['_ENV_VARS'][$key] ?? $default; }
 define('DB_HOST', env('DB_HOST', '127.0.0.1'));
 define('DB_PORT', env('DB_PORT', '3306'));
 define('DB_NAME', env('DB_NAME', 'xinyu_status'));
