@@ -1,0 +1,55 @@
+# Nginx 配置示例
+# 将 your-domain.com 替换为你的域名，root 指向项目根目录
+# fastcgi_pass 根据你的PHP版本修改
+
+server {
+    listen 80;
+    listen 443 ssl http2;
+    server_name your-domain.com;
+    root /www/wwwroot/your-domain.com;
+    index index.php index.html;
+
+    # SSL证书路径（如有）
+    # ssl_certificate /path/to/cert.pem;
+    # ssl_certificate_key /path/to/key.pem;
+
+    # 禁止访问隐藏文件
+    location ~ /\. { deny all; return 404; }
+
+    # 禁止访问敏感文件
+    location ~* \.(env|sql|log|md|lock|ini|yml|yaml|conf|example)$ { deny all; return 404; }
+
+    # 禁止直接访问 includes 和 cron 目录
+    location ^~ /includes/ { deny all; return 404; }
+    location ^~ /cron/ { deny all; return 404; }
+
+    # 禁止直接访问核心类文件
+    location ~ ^/config\.php$ { deny all; return 404; }
+
+    # 静态资源缓存
+    location /assets/ {
+        expires 7d;
+        access_log off;
+        try_files $uri =404;
+    }
+
+    # 默认处理PHP
+    location / {
+        try_files $uri $uri/ /index.php?$query_string;
+    }
+
+    # PHP-FPM
+    location ~ \.php$ {
+        try_files $uri =404;
+        fastcgi_pass unix:/tmp/php-cgi-82.sock;
+        fastcgi_index index.php;
+        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+        include fastcgi_params;
+    }
+
+    # 安全头
+    add_header X-Content-Type-Options "nosniff" always;
+    add_header X-Frame-Options "SAMEORIGIN" always;
+    add_header X-XSS-Protection "1; mode=block" always;
+    add_header Referrer-Policy "strict-origin-when-cross-origin" always;
+}

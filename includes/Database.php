@@ -12,7 +12,7 @@ class Database {
     public function fetchAll(string $sql, array $params=[]): array { return $this->query($sql,$params)->fetchAll(); }
     public function fetch(string $sql, array $params=[]): ?array { return $this->query($sql,$params)->fetch()?:null; }
     public function fetchColumn(string $sql, array $params=[], int $col=0): mixed { $v=$this->query($sql,$params)->fetchColumn($col); return $v===false?null:$v; }
-    public function insert(string $table, array $data): int { $cols=implode(', ',array_keys($data)); $ph=implode(', ',array_fill(0,count($data),'?')); $this->query("INSERT INTO `{$table}` ({$cols}) VALUES ({$ph})",array_values($data)); return (int)$this->pdo->lastInsertId(); }
+    public function insert(string $table, array $data): int { $cols=implode(', ',array_map(fn($c)=>"`{$c}`",array_keys($data))); $ph=implode(', ',array_fill(0,count($data),'?')); $this->query("INSERT INTO `{$table}` ({$cols}) VALUES ({$ph})",array_values($data)); return (int)$this->pdo->lastInsertId(); }
     public function update(string $table, array $data, string $where, array $wp=[]): int { $sets=implode(', ',array_map(fn($c)=>"`{$c}` = ?",array_keys($data))); return $this->query("UPDATE `{$table}` SET {$sets} WHERE {$where}",array_merge(array_values($data),$wp))->rowCount(); }
     public function delete(string $table, string $where, array $params=[]): int { return $this->query("DELETE FROM `{$table}` WHERE {$where}",$params)->rowCount(); }
     public function exists(string $table, string $where, array $params=[]): bool { return (bool)$this->query("SELECT 1 FROM `{$table}` WHERE {$where} LIMIT 1",$params)->fetch(); }

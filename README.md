@@ -86,6 +86,7 @@ XINYU_status/
 │   └── index.php           # 公开状态页
 ├── .env.example            # 环境配置模板
 ├── .htaccess               # Apache 安全规则
+├── nginx.conf.example      # Nginx 配置示例
 ├── config.php              # 系统配置加载
 ├── schema.sql              # MySQL 数据库结构（7 张表）
 └── index.php               # 入口重定向

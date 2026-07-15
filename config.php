@@ -1,6 +1,5 @@
 <?php
-error_reporting(E_ALL); ini_set('display_errors', '1'); ini_set('log_errors', '1');
-date_default_timezone_set('Asia/Shanghai');
+error_reporting(E_ALL); ini_set('display_errors', '0'); ini_set('log_errors', '1');
 define('BASE_PATH', __DIR__);
 $GLOBALS['_ENV_VARS'] = [];
 function loadEnv($path) {
@@ -15,6 +14,7 @@ function loadEnv($path) {
 }
 loadEnv(__DIR__ . '/.env');
 function env($key, $default = null) { return $GLOBALS['_ENV_VARS'][$key] ?? $default; }
+date_default_timezone_set(env('APP_TIMEZONE', 'Asia/Shanghai'));
 define('DB_HOST', env('DB_HOST', '127.0.0.1'));
 define('DB_PORT', env('DB_PORT', '3306'));
 define('DB_NAME', env('DB_NAME', 'xinyu_status'));
