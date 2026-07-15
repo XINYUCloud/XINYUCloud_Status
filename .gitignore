@@ -1,0 +1,11 @@
+.env
+*.log
+vendor/
+node_modules/
+.idea/
+.vscode/
+*.swp
+.DS_Store
+Thumbs.db
+*.zip
+*.tar.gz

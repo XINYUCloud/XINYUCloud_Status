@@ -1,0 +1,1 @@
+<?php require_once __DIR__.'/../config.php'; require_once __DIR__.'/../includes/Database.php'; require_once __DIR__.'/../includes/RedisClient.php'; require_once __DIR__.'/../includes/Session.php'; require_once __DIR__.'/../includes/Auth.php'; Session::start(); Auth::logout(); header('Location: /admin/login.php'); exit;
