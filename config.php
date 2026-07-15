@@ -36,3 +36,4 @@ define('DEFAULT_TIMEOUT', 10);
 define('DEFAULT_HISTORY_DAYS', 90);
 define('APP_VERSION', '3.0.0');
 define('APP_NAME', 'XINYU Status Monitor');
+require_once __DIR__ . '/includes/functions.php';

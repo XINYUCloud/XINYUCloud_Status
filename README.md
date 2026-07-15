@@ -1,126 +1,126 @@
 # XINYU Status Monitor
 
-A full-featured website uptime monitoring system built with PHP, MySQL, and Redis. Monitor HTTP/HTTPS endpoints, SSL certificates, and DNS resolution in real time, with a modern admin dashboard and public status page.
+一个基于 PHP + MySQL + Redis 构建的功能全面的网站监控系统。支持实时监控 HTTP/HTTPS 站点、SSL 证书和 DNS 解析，配备现代化管理后台和公开状态页。
 
-## Features
+## 功能特性
 
-- **Real-time Monitoring** — HTTP status codes, response time, SSL certificate expiry, and DNS resolution
-- **Admin Dashboard** — Site management, incident tracking, user management, and system settings
-- **Public Status Page** — Clean, responsive status page with auto-refresh and Chart.js-powered response time trends
-- **Multi-channel Notifications** — Webhook, Email, Slack, DingTalk, and WeCom Work
-- **Installation Wizard** — 4-step guided setup with environment checks, database configuration, and admin account creation
-- **REST API** — Public status API and authenticated admin API for external integrations
-- **Cron-ready** — CLI script for automated periodic checks with automatic incident creation
-- **Dark Mode** — Built-in dark theme support for the public status page
+- **实时监控** — HTTP 状态码、响应时间、SSL 证书过期检测、DNS 解析检测
+- **管理后台** — 站点管理、事件追踪、用户管理、通知设置、系统设置
+- **公开状态页** — 简洁响应式设计，自动刷新，Chart.js 响应时间趋势图
+- **多渠道通知** — Webhook、邮件、Slack、钉钉、企业微信
+- **安装向导** — 4 步引导安装，环境检查、数据库配置、管理员设置一步到位
+- **REST API** — 公开状态 API + 需认证的管理 API，方便外部集成
+- **定时检测** — CLI 脚本配合 Cron 实现自动化检测，异常自动创建故障事件
+- **暗色模式** — 公开状态页内置暗色主题支持
 
-## Requirements
+## 环境要求
 
-| Component | Minimum Version |
-|-----------|----------------|
-| PHP       | 8.0+           |
-| MySQL     | 5.7+           |
-| Redis     | 6.0+ (optional, recommended) |
-| Nginx / Apache | —          |
+| 组件 | 最低版本 |
+|------|----------|
+| PHP  | 8.0+    |
+| MySQL| 5.7+    |
+| Redis| 6.0+（可选，推荐）|
+| Nginx / Apache | — |
 
-**PHP Extensions:** `pdo`, `pdo_mysql`, `curl`, `openssl`, `json`, `redis` (optional)
+**PHP 扩展：** `pdo`、`pdo_mysql`、`curl`、`openssl`、`json`、`redis`（可选）
 
-## Quick Start
+## 快速开始
 
-### 1. Download & Upload
+### 1. 下载并上传
 
-Download the latest release from the [Releases page](https://github.com/XINYUCloud/XINYUCloud_Status/releases) and extract it to the web server's document root.
+从 [Releases 发布页](https://github.com/XINYUCloud/XINYUCloud_Status/releases) 下载最新版本，解压后上传至服务器网站目录。
 
-### 2. Run the Installation Wizard
+### 2. 运行安装向导
 
-Visit `http(s)://your-domain.com/install/` and follow the 4-step wizard:
+访问 `http(s)://你的域名/install/`，按 4 步向导完成安装：
 
-1. **Environment Check** — verifies PHP version and required extensions
-2. **Database Setup** — configures MySQL and Redis connection, initializes the schema
-3. **Admin Account** — creates the administrator user
-4. **Complete** — provides links to the status page and admin panel
+1. **环境检查** — 验证 PHP 版本和所需扩展
+2. **数据库配置** — 配置 MySQL 和 Redis 连接，自动初始化数据表
+3. **管理员设置** — 创建管理员账户
+4. **完成** — 提供状态页和管理后台入口链接
 
-### 3. Configure Cron
+### 3. 配置定时任务
 
-Add a cron job to run periodic checks (recommended: every minute):
+添加 Cron 定时任务以实现自动检测（建议每分钟执行）：
 
 ```
 * * * * * php /path/to/XINYU_status/cron/check.php
 ```
 
-### 4. Access
+### 4. 访问系统
 
-- **Public Status Page:** `http(s)://your-domain.com/`
-- **Admin Panel:** `http(s)://your-domain.com/admin/`
+- **公开状态页：** `http(s)://你的域名/`
+- **管理后台：** `http(s)://你的域名/admin/`
 
-## Project Structure
+## 项目结构
 
 ```
 XINYU_status/
-├── admin/                  # Admin dashboard
-│   ├── api/index.php       # Admin REST API endpoints
-│   ├── index.php           # Dashboard overview
-│   ├── sites.php           # Site management (CRUD)
-│   ├── incidents.php       # Incident tracking
-│   ├── users.php           # User management
-│   ├── notifications.php   # Notification settings
-│   ├── settings.php        # System settings & password change
-│   ├── login.php           # Admin login
-│   └── sidebar.php         # Shared sidebar component
+├── admin/                  # 管理后台
+│   ├── api/index.php       # 管理 API 端点
+│   ├── index.php           # 仪表盘
+│   ├── sites.php           # 站点管理（增删改查）
+│   ├── incidents.php       # 事件管理
+│   ├── users.php           # 用户管理
+│   ├── notifications.php   # 通知设置
+│   ├── settings.php        # 系统设置与修改密码
+│   ├── login.php           # 管理员登录
+│   └── sidebar.php         # 侧边栏组件
 ├── assets/
 │   └── css/
-│       ├── admin.css       # Admin panel styles
-│       └── public.css      # Public status page styles
+│       ├── admin.css       # 管理后台样式
+│       └── public.css      # 公开状态页样式
 ├── cron/
-│   └── check.php           # CLI cron check script
+│   └── check.php           # CLI 定时检测脚本
 ├── includes/
-│   ├── Auth.php            # Authentication (bcrypt, CSRF, rate limiting)
-│   ├── Database.php        # PDO MySQL singleton wrapper
-│   ├── functions.php       # Utility helpers
-│   ├── Monitor.php         # Core monitoring engine
-│   ├── RedisClient.php     # Redis singleton client
-│   └── Session.php         # Redis-based session management
+│   ├── Auth.php            # 认证系统（bcrypt、CSRF、速率限制）
+│   ├── Database.php        # PDO MySQL 单例封装
+│   ├── functions.php       # 辅助函数
+│   ├── Monitor.php         # 核心监控引擎
+│   ├── RedisClient.php     # Redis 单例客户端
+│   └── Session.php         # Redis 会话管理
 ├── install/
-│   └── index.php           # 4-step installation wizard
+│   └── index.php           # 4 步安装向导
 ├── public/
-│   ├── api/status.php      # Public JSON status API
-│   └── index.php           # Public status page
-├── .env.example            # Environment configuration template
-├── .htaccess               # Apache security rules
-├── config.php              # System configuration loader
-├── schema.sql              # MySQL database schema (7 tables)
-└── index.php               # Entry redirect
+│   ├── api/status.php      # 公开状态 JSON API
+│   └── index.php           # 公开状态页
+├── .env.example            # 环境配置模板
+├── .htaccess               # Apache 安全规则
+├── config.php              # 系统配置加载
+├── schema.sql              # MySQL 数据库结构（7 张表）
+└── index.php               # 入口重定向
 ```
 
-## Database Schema
+## 数据库设计
 
-The system uses 7 MySQL tables:
+系统使用 7 张 MySQL 数据表：
 
-| Table              | Description                          |
-|--------------------|--------------------------------------|
-| `users`            | Admin user accounts (bcrypt hashed)  |
-| `sites`            | Monitored websites and endpoints     |
-| `checks`           | Historical check results with metrics|
-| `incidents`        | Incident/downtime records            |
-| `incident_updates` | Timeline updates for each incident   |
-| `notifications`    | Notification channel configurations  |
-| `settings`         | Key-value system settings            |
+| 表名               | 说明                              |
+|--------------------|-----------------------------------|
+| `users`            | 管理员账户（bcrypt 哈希存储）       |
+| `sites`            | 监控站点配置                       |
+| `checks`           | 历史检测记录（含响应时间等指标）     |
+| `incidents`        | 故障事件记录                       |
+| `incident_updates` | 事件时间线更新                     |
+| `notifications`    | 通知渠道配置                       |
+| `settings`         | 系统键值对设置                     |
 
-## Security
+## 安全措施
 
-- **Password Hashing** — bcrypt with cost factor 12
-- **SQL Injection Prevention** — PDO prepared statements exclusively
-- **CSRF Protection** — per-session tokens on all admin forms
-- **XSS Prevention** — `htmlspecialchars()` output escaping
-- **Session Management** — Redis-backed sessions with automatic rotation
-- **Rate Limiting** — brute-force protection on login attempts
-- **Input Validation** — all user input validated and sanitized
+- **密码哈希** — bcrypt，cost 因子 12
+- **SQL 注入防护** — 全部使用 PDO 预处理语句
+- **CSRF 防护** — 所有管理表单均带 per-session 令牌
+- **XSS 防护** — 输出统一使用 `htmlspecialchars()` 转义
+- **会话管理** — Redis 存储会话，自动轮换 Session ID
+- **速率限制** — 登录接口防暴力破解
+- **输入验证** — 所有用户输入均经过验证和过滤
 
-## Configuration
+## 配置说明
 
-System configuration is managed via the `.env` file. An example is provided as `.env.example`:
+系统配置通过 `.env` 文件管理，安装向导会自动生成。模板见 `.env.example`：
 
 ```ini
-# Database
+# 数据库
 DB_HOST=127.0.0.1
 DB_PORT=3306
 DB_NAME=xinyu_status
@@ -134,48 +134,57 @@ REDIS_PASS=
 REDIS_DB=0
 ```
 
-The installation wizard generates this file automatically. Manual edits are also supported.
+## API 文档
 
-## API Reference
-
-### Public API
+### 公开 API
 
 **`GET /public/api/status.php`**
 
-Returns the current status of all monitored sites.
+返回所有监控站点的当前状态。
 
 ```json
 {
+  "success": true,
+  "summary": {
+    "total_sites": 2,
+    "online_sites": 2,
+    "offline_sites": 0,
+    "avg_response": 235
+  },
   "sites": [
     {
       "id": 1,
-      "name": "Example Site",
+      "name": "示例站点",
       "url": "https://example.com",
-      "status": "up",
-      "status_code": "200",
-      "response_time": 0.23,
-      "last_checked": "2026-07-15 16:00:00",
-      "ssl_valid": true,
-      "ssl_expires": "2026-12-01",
-      "dns_resolved": "93.184.216.34"
+      "status": "ok",
+      "http_code": 200,
+      "response_time": 230,
+      "uptime": {
+        "daily": 100,
+        "weekly": 99.95,
+        "monthly": 99.88,
+        "all_time": 99.91
+      }
     }
-  ]
+  ],
+  "timestamp": "2026-07-15 16:00:00",
+  "version": "3.0.0"
 }
 ```
 
-### Admin API
+### 管理 API
 
-All admin endpoints require authentication and CSRF token. See `admin/api/index.php` for full documentation.
+所有管理端点需登录认证和 CSRF 令牌。
 
-| Endpoint          | Method | Description              |
-|-------------------|--------|--------------------------|
-| `/admin/api/`     | GET    | Dashboard summary        |
-| `?action=check`   | POST   | Check a single site      |
-| `?action=check_all`| POST  | Check all sites          |
-| `?action=uptime`  | GET    | Get uptime statistics    |
-| `?action=trend`   | GET    | Get response time trend  |
-| `?action=history` | GET    | Get check history        |
+| 端点               | 方法 | 说明             |
+|--------------------|------|------------------|
+| `?action=summary`  | GET  | 获取仪表盘摘要   |
+| `?action=check`    | POST | 检测单个站点     |
+| `?action=check_all`| POST | 检测所有站点     |
+| `?action=uptime`   | GET  | 获取可用率统计   |
+| `?action=trend`    | GET  | 获取响应时间趋势 |
+| `?action=history`  | GET  | 获取检测历史记录 |
 
-## License
+## 开源协议
 
-GNU General Public License v3.0 — see [LICENSE](https://github.com/XINYUCloud/XINYUCloud_Status/blob/main/LICENSE) for details.
+GNU General Public License v3.0 — 详见 [LICENSE](https://github.com/XINYUCloud/XINYUCloud_Status/blob/main/LICENSE)
